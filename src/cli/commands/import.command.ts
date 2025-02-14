@@ -17,12 +17,12 @@ export class ImportCommand implements CommandInterface {
 
       Log.data(fileReader.toArray());
     } catch (err) {
+      Log.error(`Can't import data from file: ${filename}`);
 
       if (!(err instanceof Error)) {
         throw err;
       }
 
-      Log.error(`Can't import data from file: ${filename}`);
       Log.error(`Details: ${err.message}`);
     }
   }

@@ -32,7 +32,6 @@ const styleCommand = chalk.green;
 const styleArguments = chalk.blue;
 const styleComments = chalk.dim;
 
-
 const ExampleMessage: MessageLine<ExampleLine> = {
   Title: 'Пример:',
   Line: {
@@ -72,7 +71,6 @@ const getSeparator = (...args: number[]) => {
 
   return ''.padStart(separatorsCount);
 };
-
 
 const styleExample = (line: ExampleLine | CommandsLine) => {
   let prefix = '';

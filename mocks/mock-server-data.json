@@ -1,0 +1,110 @@
+{
+  "api": {
+    "titles": [
+      "Jupe view",
+      "Beautiful loft",
+      "Apart hotel",
+      "Motel with ocean view",
+      "Place to rest"
+    ],
+    "descriptions": [
+      "871 Tobsu Ridge",
+      "1504 Nowlo Path",
+      "1585 Vorsu Glen",
+      "623 Akuwes Turnpike",
+      "1472 Ducu Heights",
+      "33 Culo Ridge"
+    ],
+    "cities": [
+      {
+        "name": "Paris",
+        "location": {
+          "latitude": 48.85661,
+          "longitude": 2.351499
+        }
+      },
+      {
+        "name": "Cologne",
+        "location": {
+          "latitude": 50.938361,
+          "longitude": 6.959974
+        }
+      },
+      {
+        "name": "Brussels",
+        "location": {
+          "latitude": 50.846557,
+          "longitude": 4.351697
+        }
+      },
+      {
+        "name": "Amsterdam",
+        "location": {
+          "latitude": 52.370216,
+          "longitude": 4.895168
+        }
+      },
+      {
+        "name": "Hamburg",
+        "location": {
+          "latitude": 53.550341,
+          "longitude": 10.000654
+        }
+      },
+      {
+        "name": "Dusseldorf",
+        "location": {
+          "latitude": 51.225402,
+          "longitude": 6.776314
+        }
+      }
+    ],
+    "previewUrls": [
+      "https://plus.unsplash.com/premium_photo-1661778773089-8718bcedb39e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG9tZSUyMGludGVyaW9yfGVufDB8fDB8fHww",
+      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG9tZSUyMGludGVyaW9yfGVufDB8fDB8fHww",
+      "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG9tZSUyMGludGVyaW9yfGVufDB8fDB8fHww",
+      "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGhvbWUlMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D",
+      "https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGhvbWUlMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D",
+      "https://plus.unsplash.com/premium_photo-1673014201308-5963c9017fb5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGhvbWUlMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D",
+      "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fGhvbWUlMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D",
+      "https://images.unsplash.com/photo-1600494603989-9650cf6ddd3d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGhvbWUlMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D"
+    ],
+    "types": [
+      "room",
+      "apartment",
+      "house",
+      "hotel"
+    ],
+    "facilities": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "users": [
+      "Frederick Jensen",
+      "Bess Garrett",
+      "Katie Ellis",
+      "Luella Martinez",
+      "Elijah Moreno"
+    ],
+    "emails": [
+      "fuwaczec@onefum.de",
+      "zar@mukadfu.th",
+      "reru@usaapzup.mk",
+      "nowak@ipu.sr",
+      "bozsoz@efe.ag"
+    ],
+    "avatars": [
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/78/788590d0ed5244eb4cce932e1bd39b7ce8aa87a4_full.jpg;1234",
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/78/78abcbec9afe7826a72ba379607295986733b491_full.jpg;345",
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/e0/e03a8579d6e71d5740ed4a17ed776ae251848e25_full.jpg",
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/c3/c3a6be50b5bc4e4caeebfaf6c7b23e4d40763037_full.jpg",
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/8b/8ba3b4073dd13035cdfdaf9bc10a47aeababdb32_full.jpg",
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/ac/ac010b2b95914420dfd36b5b7778960ef0e29663_full.jpg"
+    ]
+  }
+}

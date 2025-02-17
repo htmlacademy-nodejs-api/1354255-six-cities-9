@@ -6,7 +6,7 @@ import {
   User
 } from '../../types/index.js';
 
-export type Offer = Partial<{
+export type Offer = {
   title: string;
   description: string;
   date: Date;
@@ -24,4 +24,4 @@ export type Offer = Partial<{
   user: User;
   comments: number;
   location: OfferLocation;
-}>
+};

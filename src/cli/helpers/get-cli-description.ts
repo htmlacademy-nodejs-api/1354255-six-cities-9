@@ -1,8 +1,7 @@
 import chalk from 'chalk';
 
+import { CommandType } from '../../shared/types/index.js';
 import { Command } from '../consts.js';
-
-type CommandType = typeof Command[keyof typeof Command];
 
 type ExampleLine = {
   file: string;

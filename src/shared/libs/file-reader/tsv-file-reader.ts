@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import EventEmitter from 'node:events';
+import { createReadStream } from 'node:fs';
 
 import {
   Offer,
@@ -8,26 +9,16 @@ import {
   OfferLocation,
   User
 } from '../../types/index.js';
+import { FileReaderEvent } from './file-reader-events.js';
 import { FileReader } from './file-reader.interface.js';
 
 type BooleanString = 'true' | 'false';
 
-export class TSVFileReader implements FileReader {
-  private rawData = '';
+export class TSVFileReader extends EventEmitter implements FileReader {
+  private readonly CHUNK_SIZE = 16384; // 16KB
 
-  constructor(private readonly filename: string) {}
-
-  private validateRawData(): void {
-    if (!this.rawData) {
-      throw new Error('File was not read');
-    }
-  }
-
-  private parseRawDataToOffers(): Offer[] {
-    return this.rawData
-      .split('\n')
-      .filter((row) => row.trim().length > 0)
-      .map((line) => this.parseLineToOffer(line));
+  constructor(private readonly filename: string) {
+    super();
   }
 
   private parseLineToOffer(line: string): Offer {
@@ -100,12 +91,29 @@ export class TSVFileReader implements FileReader {
     return Number.parseInt(numberString, 10);
   }
 
-  public read(): void {
-    this.rawData = readFileSync(this.filename, { encoding: 'utf-8' });
-  }
+  public async read(): Promise<void> {
+    const readStream = createReadStream(this.filename, {
+      highWaterMark: this.CHUNK_SIZE,
+      encoding: 'utf-8',
+    });
 
-  public toArray(): Offer[] {
-    this.validateRawData();
-    return this.parseRawDataToOffers();
+    let remainingData = '';
+    let nextLinePosition = -1;
+    let importedRowCount = 0;
+
+    for await (const chunk of readStream) {
+      remainingData += chunk.toString();
+
+      while ((nextLinePosition = remainingData.indexOf('\n')) >= 0) {
+        const completeRow = remainingData.slice(0, nextLinePosition + 1);
+        remainingData = remainingData.slice(++nextLinePosition);
+        importedRowCount++;
+
+        const parsedOffer = this.parseLineToOffer(completeRow);
+        this.emit(FileReaderEvent.LINE, parsedOffer);
+      }
+    }
+
+    this.emit(FileReaderEvent.END, importedRowCount);
   }
 }

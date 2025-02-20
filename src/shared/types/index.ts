@@ -10,3 +10,4 @@ export { MockOfferCity } from './mock-data/mock-offer-city.type.js';
 export { MockServerData } from './mock-data/mock-server-data.type.js';
 
 export { CommandType } from './command.type.js';
+export { Component } from './component.enum.js';

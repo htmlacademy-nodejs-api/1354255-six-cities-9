@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 import { readdirSync } from 'node:fs';
-
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { COMMANDS_DIR } from './cli/consts.js';
 import { isCommandConstructor } from './cli/helpers/is-command-constructor.js';
 import { Log } from './cli/helpers/log.helper.js';
-import { CLIApp } from './cli/index.js';
+import { CLIApplication } from './cli/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,7 +43,7 @@ const loadCommandInstances = async () => {
 };
 
 async function bootstrap() {
-  const cliApp = new CLIApp();
+  const cliApp = new CLIApplication();
 
   const commands = await loadCommandInstances();
 

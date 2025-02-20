@@ -4,7 +4,7 @@ import { Command } from './consts.js';
 
 type CommandCollection = Record<string, CommandInterface>;
 
-export class CLIApp {
+export class CLIApplication {
   private commands: CommandCollection = {};
 
   constructor(private readonly defaultCommand: string = Command.HELP) {}

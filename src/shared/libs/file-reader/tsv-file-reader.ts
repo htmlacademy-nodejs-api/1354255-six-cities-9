@@ -7,7 +7,7 @@ import {
   OfferFacility,
   OfferHousing,
   OfferLocation,
-  User
+  UserWithPassword
 } from '../../types/index.js';
 import { FileReaderEvent } from './file-reader-events.js';
 import { FileReader } from './file-reader.interface.js';
@@ -71,10 +71,10 @@ export class TSVFileReader extends EventEmitter implements FileReader {
     return facilitiesString.split(';') as OfferFacility[];
   }
 
-  private parseUser(userString: string): User {
+  private parseUser(userString: string): UserWithPassword {
     const [name, email, avatarUrl, password, type] = userString.split(';');
 
-    return { name, email, avatarUrl, password, type } as User;
+    return { name, email, avatarUrl, password, type } as UserWithPassword;
   }
 
   private parseLocation(locationString: string): OfferLocation {
@@ -110,7 +110,10 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         importedRowCount++;
 
         const parsedOffer = this.parseLineToOffer(completeRow);
-        this.emit(FileReaderEvent.LINE, parsedOffer);
+
+        await new Promise((resolve) => {
+          this.emit(FileReaderEvent.LINE, parsedOffer, resolve);
+        });
       }
     }
 

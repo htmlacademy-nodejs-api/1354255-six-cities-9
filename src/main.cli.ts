@@ -2,10 +2,10 @@
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import 'reflect-metadata';
 
 import { COMMANDS_DIR } from './cli/consts.js';
 import { isCommandConstructor } from './cli/helpers/is-command-constructor.js';
-import { Log } from './cli/helpers/log.helper.js';
 import { CLIApplication } from './cli/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -35,7 +35,7 @@ const loadCommandInstances = async () => {
     return instances;
   } catch (err) {
     if (err instanceof Error) {
-      Log.error(err.message);
+      console.error(err.message);
     }
 
     throw err;

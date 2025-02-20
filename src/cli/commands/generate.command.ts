@@ -1,15 +1,20 @@
 import got from 'got';
 
-import { getErrorMessage } from '../../shared/helpers/index.js';
 import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
+import { ConsoleLogger } from '../../shared/libs/logger/console.logger.js';
+import { Logger } from '../../shared/libs/logger/index.js';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
 import { MockServerData } from '../../shared/types/index.js';
 import { Command } from '../consts.js';
-import { Log } from '../helpers/log.helper.js';
 import { Command as CommandInterface } from './command.interface.js';
 
 export class GenerateCommand implements CommandInterface {
   private initialData: MockServerData;
+  private logger: Logger;
+
+  constructor() {
+    this.logger = new ConsoleLogger();
+  }
 
   private async load(url: string) {
     try {
@@ -40,10 +45,9 @@ export class GenerateCommand implements CommandInterface {
       await this.load(url);
       await this.write(filepath, offerCount);
 
-      Log.info(`File ${filepath} was created!`);
+      this.logger.info(`File ${filepath} was created!`);
     } catch (err) {
-      Log.error('Can\'t generate data');
-      Log.error(getErrorMessage(err));
+      this.logger.error('Can\'t generate data', err as Error);
     }
   }
 }

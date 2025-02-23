@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { Logger } from '../../shared/libs/logger/index.js';
 import { Command } from '../consts.js';
-import { Log } from '../helpers/log.helper.js';
 import { Command as CommandInterface } from './command.interface.js';
 
 type PackageJSONConfig = {
@@ -19,8 +19,11 @@ function isPackageJSONConfig(value: unknown): value is PackageJSONConfig {
 }
 
 export class VersionCommand implements CommandInterface {
+
+
   constructor(
-    private readonly filePath: string = 'package.json'
+    private readonly filePath: string = 'package.json',
+    private logger: Logger
   ) {}
 
   private readVersion(): string {
@@ -42,13 +45,9 @@ export class VersionCommand implements CommandInterface {
     try {
       const version = this.readVersion();
 
-      Log.info(version);
-    } catch (error: unknown) {
-      Log.error(`Failed to read version from ${this.filePath}`);
-
-      if (error instanceof Error) {
-        Log.error(error.message);
-      }
+      this.logger.info(version);
+    } catch (err) {
+      this.logger.error(`Failed to read version from ${this.filePath}`, err as Error);
     }
   }
 }

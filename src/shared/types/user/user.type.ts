@@ -4,6 +4,7 @@ export type User = {
   name: string;
   email: string;
   avatarUrl?: string;
-  password: string;
   type: UserStatus;
 }
+
+export type UserWithPassword = User & { password: string }

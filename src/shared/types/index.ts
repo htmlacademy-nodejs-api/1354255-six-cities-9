@@ -4,7 +4,7 @@ export { OfferHousing } from './offer/offer-housing.type.js';
 export { OfferLocation } from './offer/offer-location.type.js';
 export { Offer } from './offer/offer.type.js';
 export { UserStatus } from './user/user-status.enum.js';
-export { User } from './user/user.type.js';
+export { User, UserWithPassword } from './user/user.type.js';
 
 export { MockOfferCity } from './mock-data/mock-offer-city.type.js';
 export { MockServerData } from './mock-data/mock-server-data.type.js';

@@ -72,6 +72,15 @@ npm start
 
 В процессе запуска проекта будет выполнен процесс «Сборки проекта» и запуска результирующего кода.
 
+#### Запустить docker
+```bash
+docker compose \
+--file ./docker-compose.yml \
+--env-file ./.env \
+--project-name "six-cities" \
+up -d
+```
+
 ## Структура проекта
 
 ### Директория `src`

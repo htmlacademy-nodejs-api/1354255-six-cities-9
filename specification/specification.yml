@@ -323,7 +323,6 @@ paths:
 
     post:
       tags:
-          - offers
           - comments
       summary: Добавление комментария
       description: Добавление комментария к определённому предложению по аренде.

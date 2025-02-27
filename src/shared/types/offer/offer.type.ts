@@ -21,7 +21,7 @@ export type Offer = {
   guests: number;
   price: number;
   facilities: OfferFacility[];
-  user: User;
+  author: User;
   comments: number;
   location: OfferLocation;
 };

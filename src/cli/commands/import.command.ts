@@ -35,7 +35,7 @@ export class ImportCommand implements CommandInterface {
 
   private async saveOffer(offer: Offer) {
     const user = await this.userService.findOrCreate({
-      ...offer.user,
+      ...offer.author,
       password: DEFAULT_USER_PASSWORD
     }, this.salt);
 
@@ -54,7 +54,7 @@ export class ImportCommand implements CommandInterface {
       guests: offer.guests,
       price: offer.price,
       facilities: offer.facilities,
-      user: user.id,
+      author: user.id,
       comments: 0,
       location: offer.location
     });

@@ -57,7 +57,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       guests: this.parseToNumber(guests),
       price: this.parseToNumber(price),
       facilities: this.parseFacilities(facilities),
-      user: this.parseUser(user),
+      author: this.parseUser(user),
       comments: this.parseToNumber(comments),
       location: this.parseLocation(location)
     };

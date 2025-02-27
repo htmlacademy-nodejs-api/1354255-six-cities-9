@@ -11,3 +11,4 @@ export { MockServerData } from './mock-data/mock-server-data.type.js';
 
 export { CommandType } from './command.type.js';
 export { Component } from './component.enum.js';
+export { SortType } from './sort-type.enum.js';

@@ -294,7 +294,7 @@ paths:
         '422':
           description: Ошибка валидации данных
 
-  /comments/{offerId}:
+  /offers/{offerId}/comments:
     get:
       tags:
         - offers

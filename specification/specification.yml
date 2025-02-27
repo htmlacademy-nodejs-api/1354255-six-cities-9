@@ -297,7 +297,6 @@ paths:
   /offers/{offerId}/comments:
     get:
       tags:
-        - offers
         - comments
       summary: Список комментариев для предложения
       description: Список комментариев для определённого предложения.

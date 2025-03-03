@@ -1,6 +1,6 @@
-import { OfferCity, OfferFacility, OfferHousing, OfferLocation, User } from '../../../types/index.js';
+import { Offer, OfferCity, OfferFacility, OfferHousing, OfferLocation, User } from '../../../types/index.js';
 
-export class CreateOfferDto {
+export class CreateOfferDto implements Offer {
   title: string;
   description: string;
   date: Date;
@@ -15,7 +15,7 @@ export class CreateOfferDto {
   guests: number;
   price: number;
   facilities: OfferFacility[];
-  user: User;
+  author: User;
   comments: number;
   location: OfferLocation;
 }

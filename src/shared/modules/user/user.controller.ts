@@ -23,13 +23,14 @@ export class UserController extends BaseController {
   ) {
     super(logger);
 
-    this.logger.info('Register routes for UserController…');
+    this.logger.info(`Register routes for ${UserController.name}…`);
 
     this.addRoute({
       path: '/register',
       method: HttpMethod.Post,
       handler: this.create,
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Post,
@@ -66,14 +67,14 @@ export class UserController extends BaseController {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         `User with email ${body.email} not found.`,
-        'UserController',
+        UserController.name,
       );
     }
 
     throw new HttpError(
       StatusCodes.NOT_IMPLEMENTED,
       'Not implemented',
-      'UserController',
+      UserController.name,
     );
   }
 }

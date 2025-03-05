@@ -18,7 +18,7 @@ export class OfferController extends BaseController {
   ) {
     super(logger);
 
-    this.logger.info('Register routes for OfferController…');
+    this.logger.info(`Register routes for ${OfferController.name}…`);
 
     this.addRoute({
       path: '/:id',
@@ -36,7 +36,7 @@ export class OfferController extends BaseController {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
         `The offer with id ${id} was not found.`,
-        'OfferController',
+        OfferController.name,
       );
     }
 

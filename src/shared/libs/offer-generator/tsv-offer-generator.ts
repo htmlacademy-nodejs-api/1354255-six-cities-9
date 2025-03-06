@@ -1,42 +1,22 @@
 import dayjs from 'dayjs';
 
 import {
+  CommentRules,
   generateRandomValue,
   getRandomBoolean,
   getRandomItem,
-  getRandomItems
+  getRandomItems,
+  GuestRules,
+  PriceRules,
+  RatingRules,
+  RoomRules
 } from '../../helpers/index.js';
 import { MockOfferCity, MockServerData, UserStatus } from '../../types/index.js';
 import { OfferGenerator } from './offer-generator.interface.js';
 
-const Price = {
-  MIN: 100,
-  MAX: 100_000
-};
-
 const Weekday = {
   FIRST: 1,
   LAST: 7
-};
-
-const Rating = {
-  MIN: 1,
-  MAX: 5
-};
-
-const RoomsCount = {
-  MIN: 1,
-  MAX: 8
-};
-
-const GuestsCount = {
-  MIN: 1,
-  MAX: 10
-};
-
-const Comments = {
-  MIN: 0,
-  MAX: 10
 };
 
 export class TSVOfferGenerator implements OfferGenerator {
@@ -50,13 +30,13 @@ export class TSVOfferGenerator implements OfferGenerator {
     const images = getRandomItems<string>(this.mockData.previewUrls, 6).join(';');
     const isPremium = getRandomBoolean();
     const isFavorite = getRandomBoolean();
-    const rating = generateRandomValue(Rating.MIN, Rating.MAX);
+    const rating = generateRandomValue(RatingRules.MIN, RatingRules.MAX);
     const type = getRandomItem(this.mockData.types);
-    const rooms = generateRandomValue(RoomsCount.MIN, RoomsCount.MAX);
-    const guests = generateRandomValue(GuestsCount.MIN, GuestsCount.MAX);
-    const price = generateRandomValue(Price.MIN, Price.MAX).toString();
+    const rooms = generateRandomValue(RoomRules.MIN, RoomRules.MAX);
+    const guests = generateRandomValue(GuestRules.MIN, GuestRules.MAX);
+    const price = generateRandomValue(PriceRules.MIN, PriceRules.MAX).toString();
     const facilities = getRandomItems<string>(this.mockData.facilities).join(';');
-    const comments = generateRandomValue(Comments.MIN, Comments.MAX);
+    const comments = generateRandomValue(CommentRules.MIN, CommentRules.MAX);
 
     const name = getRandomItem(this.mockData.users);
     const email = getRandomItem(this.mockData.emails);

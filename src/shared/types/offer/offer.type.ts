@@ -3,7 +3,7 @@ import {
   OfferFacility,
   OfferHousing,
   OfferLocation,
-  User
+  User,
 } from '../../types/index.js';
 
 export type Offer = {
@@ -22,6 +22,6 @@ export type Offer = {
   price: number;
   facilities: OfferFacility[];
   author: User;
-  comments: number;
+  comments?: number;
   location: OfferLocation;
 };

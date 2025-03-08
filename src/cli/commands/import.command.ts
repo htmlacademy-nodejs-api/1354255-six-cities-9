@@ -55,7 +55,6 @@ export class ImportCommand implements CommandInterface {
       price: offer.price,
       facilities: offer.facilities,
       author: user.id,
-      comments: 0,
       location: offer.location
     });
   }

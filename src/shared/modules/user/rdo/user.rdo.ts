@@ -10,7 +10,7 @@ export class UserRdo {
   public name: string;
 
   @Expose()
-  public avatarPath?: string;
+  public avatarUrl?: string;
 
   @Expose()
   public type: UserStatus;

@@ -381,7 +381,7 @@ components:
           type: string
           example: '123456'
 
-        avatarPath:
+        avatarUrl:
           type: string
           example: keks.png
 

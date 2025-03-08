@@ -6,4 +6,5 @@ export const OfferRoute = {
 export const UserRoute = {
   LOGIN: '/login',
   REGISTER: '/register',
+  UPLOAD: '/:userId/avatar',
 } as const;

@@ -60,6 +60,10 @@ export class RestApplication {
     this.logger.info('Init app-level middleware');
 
     this.server.use(express.json());
+    this.server.use(
+      '/upload',
+      express.static(this.config.get('UPLOAD_DIRECTORY')),
+    );
 
     this.logger.info('App-level middleware initialization completed');
   }

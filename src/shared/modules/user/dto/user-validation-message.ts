@@ -1,5 +1,5 @@
 import { UserStatus } from '../../../types/index.js';
-import { NameRules, PasswordRules } from '../index.js';
+import { NameRules, PasswordRules } from '../user.constant.js';
 
 export const UserValidationMessage = {
   name: {

@@ -22,3 +22,5 @@ export { HttpMethod } from './http-method.enum.js';
 export { RequestBody, RequestParams } from './request.type.js';
 
 export { DocumentExists } from './document-exists.interface.js';
+
+export { TokenPayload } from './token-payload.js';

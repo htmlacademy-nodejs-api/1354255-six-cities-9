@@ -3,15 +3,24 @@ import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from 'inversify';
 
 import { fillDTO } from '../../helpers/common.js';
-import { Config, RestSchema } from '../../libs/config/index.js';
+import { Config, RestSchema, RestSchemaEnum } from '../../libs/config/index.js';
 import { Logger } from '../../libs/logger/index.js';
-import { BaseController, HttpError, UploadFileMiddleware, UserRoute, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../libs/rest/index.js';
+import {
+  BaseController,
+  HttpError,
+  UploadFileMiddleware,
+  UserRoute,
+  ValidateDtoMiddleware,
+  ValidateObjectIdMiddleware
+} from '../../libs/rest/index.js';
 import { Component } from '../../types/component.enum.js';
 import { HttpMethod } from '../../types/index.js';
+import { AuthService } from '../auth/index.js';
 import { CreateUserRequest } from './create-user-request.type.js';
 import { LoginUserDto } from './dto/login-user.dto.js';
 import { CreateUserDto } from './index.js';
 import { LoginUserRequest } from './login-user-request.type.js';
+import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
 import { UserRdo } from './rdo/user.rdo.js';
 import { UserService } from './user-service.interface.js';
 
@@ -20,6 +29,7 @@ export class UserController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
+    @inject(Component.AuthService) private readonly authService: AuthService,
     @inject(Component.Config)
     private readonly configService: Config<RestSchema>,
   ) {
@@ -48,7 +58,7 @@ export class UserController extends BaseController {
         middlewares: [
           new ValidateObjectIdMiddleware('userId'),
           new UploadFileMiddleware(
-            this.configService.get('UPLOAD_DIRECTORY'),
+            this.configService.get(RestSchemaEnum.UploadDirectory),
             'avatar',
           ),
         ],
@@ -72,28 +82,21 @@ export class UserController extends BaseController {
 
     const result = await this.userService.create(
       body,
-      this.configService.get('SALT'),
+      this.configService.get(RestSchemaEnum.Salt),
     );
 
     this.created(res, fillDTO(UserRdo, result));
   }
 
-  public async login({ body }: LoginUserRequest, _res: Response) {
-    const user = await this.userService.findByEmail(body.email);
+  public async login({ body }: LoginUserRequest, res: Response) {
+    const user = await this.authService.verify(body);
+    const token = await this.authService.authenticate(user);
+    const responseData = fillDTO(LoggedUserRdo, {
+      email: user.email,
+      token,
+    });
 
-    if (!user) {
-      throw new HttpError(
-        StatusCodes.UNAUTHORIZED,
-        `User with email ${body.email} not found.`,
-        UserController.name,
-      );
-    }
-
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      UserController.name,
-    );
+    this.ok(res, responseData);
   }
 
   public async uploadAvatar(req: Request, res: Response) {

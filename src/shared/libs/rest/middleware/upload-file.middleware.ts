@@ -21,13 +21,12 @@ export class UploadFileMiddleware implements Middleware {
       filename: (_req, file, callback) => {
         const fileExtention = extension(file.mimetype);
         const filename = crypto.randomUUID();
+
         callback(null, `${filename}.${fileExtention}`);
       },
     });
 
-    const uploadSingleFileMiddleware = multer({ storage }).single(
-      this.fieldName,
-    );
+    const uploadSingleFileMiddleware = multer({ storage }).single(this.fieldName);
 
     uploadSingleFileMiddleware(req, res, next);
   }

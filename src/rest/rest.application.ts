@@ -2,10 +2,14 @@ import express, { Express } from 'express';
 import { inject, injectable } from 'inversify';
 
 import { getMongoURI } from '../shared/helpers/index.js';
-import { Config, RestSchema } from '../shared/libs/config/index.js';
+import { Config, RestSchema, RestSchemaEnum } from '../shared/libs/config/index.js';
 import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { Logger } from '../shared/libs/logger/index.js';
-import { Controller, ExceptionFilter } from '../shared/libs/rest/index.js';
+import {
+  Controller,
+  ExceptionFilter,
+  ParseTokenMiddleware
+} from '../shared/libs/rest/index.js';
 import { Component } from '../shared/types/index.js';
 
 @injectable()
@@ -22,6 +26,8 @@ export class RestApplication {
     private readonly userController: Controller,
     @inject(Component.OfferController)
     private readonly offerController: Controller,
+    @inject(Component.AuthExceptionFilter)
+    private readonly authExceptionFilter: ExceptionFilter,
   ) {
     this.server = express();
   }
@@ -30,11 +36,11 @@ export class RestApplication {
     this.logger.info('Init database…');
 
     const mongoUri = getMongoURI(
-      this.config.get('DB_USER'),
-      this.config.get('DB_PASSWORD'),
-      this.config.get('DB_HOST'),
-      this.config.get('DB_PORT'),
-      this.config.get('DB_NAME'),
+      this.config.get(RestSchemaEnum.DbUser),
+      this.config.get(RestSchemaEnum.DbPassword),
+      this.config.get(RestSchemaEnum.DbHost),
+      this.config.get(RestSchemaEnum.DbPort),
+      this.config.get(RestSchemaEnum.DbName),
     );
 
     return this.databaseClient.connect(mongoUri);
@@ -43,7 +49,7 @@ export class RestApplication {
   private async initServer() {
     this.logger.info('Try to init server…');
 
-    const port = this.config.get('PORT');
+    const port = this.config.get(RestSchemaEnum.Port);
     this.server.listen(port);
   }
 
@@ -59,10 +65,17 @@ export class RestApplication {
   private initMiddleware() {
     this.logger.info('Init app-level middleware');
 
+    const authenticateMiddleware = new ParseTokenMiddleware(
+      this.config.get(RestSchemaEnum.JwtSecret),
+    );
+
     this.server.use(express.json());
     this.server.use(
       '/upload',
-      express.static(this.config.get('UPLOAD_DIRECTORY')),
+      express.static(this.config.get(RestSchemaEnum.UploadDirectory)),
+    );
+    this.server.use(
+      authenticateMiddleware.execute.bind(authenticateMiddleware),
     );
 
     this.logger.info('App-level middleware initialization completed');
@@ -74,13 +87,16 @@ export class RestApplication {
     this.server.use(
       this.appExceptionFilter.catch.bind(this.appExceptionFilter),
     );
+    this.server.use(
+      this.authExceptionFilter.catch.bind(this.authExceptionFilter),
+    );
 
     this.logger.info('Exception filters initialization completed');
   }
 
   public async init() {
     this.logger.info('Application initialization');
-    this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
+    this.logger.info(`Get value from env $PORT: ${this.config.get(RestSchemaEnum.Port)}`);
 
     await this.initDb();
     this.logger.info('Init database completed');
@@ -91,7 +107,7 @@ export class RestApplication {
 
     await this.initServer();
     this.logger.info(
-      `🚀 Server started on http://localhost:${this.config.get('PORT')}`
+      `🚀 Server started on http://localhost:${this.config.get(RestSchemaEnum.Port)}`
     );
   }
 }

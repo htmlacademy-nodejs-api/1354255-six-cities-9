@@ -5,6 +5,7 @@ export {
 
 export { DefaultUserService } from './default-user.service.js';
 export { CreateUserDto } from './dto/create-user.dto.js';
+export { LoginUserDto } from './dto/login-user.dto.js';
 export { UserRdo } from './rdo/user.rdo.js';
 export { UserService } from './user-service.interface.js';
 export { NameRules, PasswordRules } from './user.constant.js';

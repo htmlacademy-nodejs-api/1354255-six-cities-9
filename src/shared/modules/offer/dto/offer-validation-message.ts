@@ -10,10 +10,12 @@ import {
 
 export const OfferValidationMessage = {
   title: {
+    invalidFormat: 'title must be a string',
     invalid: `Title length must be from ${TitleRules.MIN_LENGTH} to ${TitleRules.MAX_LENGTH} symbols`,
   },
 
   description: {
+    invalidFormat: 'description must be a string',
     invalid: `Description length must be from ${DescriptionRules.MIN_LENGTH} to ${DescriptionRules.MAX_LENGTH}`,
   },
 
@@ -26,11 +28,12 @@ export const OfferValidationMessage = {
   },
 
   previewUrl: {
+    invalidFormat: 'preview must be a string',
     maxLength: `Preview url must not be longer than ${ImageUrlRules.MAX_LENGTH} characters`,
   },
 
   images: {
-    invalidFormat: 'Images field must be an array',
+    invalidFormat: 'Images field must be an array of strings',
     maxLength:
       `All photos in images array must not be longer than ${ImageUrlRules.MAX_LENGTH} characters`,
   },
@@ -65,7 +68,7 @@ export const OfferValidationMessage = {
   },
 
   price: {
-    invalidFormat: 'Price must be an integer',
+    invalidFormat: 'Price must be a number',
     minValue: `Minimum price is ${PriceRules.MIN}`,
     maxValue: `Maximum price is ${PriceRules.MAX}`,
   },

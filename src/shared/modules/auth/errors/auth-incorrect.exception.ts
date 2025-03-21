@@ -2,8 +2,8 @@ import { StatusCodes } from 'http-status-codes';
 
 import { BaseUserException } from './base-user.exception.js';
 
-export class UserNotFoundException extends BaseUserException {
+export class AuthIncorrectException extends BaseUserException {
   constructor() {
-    super(StatusCodes.NOT_FOUND, 'User not found');
+    super(StatusCodes.UNAUTHORIZED, 'Incorrect email or password');
   }
 }

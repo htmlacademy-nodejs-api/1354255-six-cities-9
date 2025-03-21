@@ -3,8 +3,8 @@ export { OfferCity } from './offer/offer-city.enum.js';
 export { OfferFacility } from './offer/offer-facility.enum.js';
 export { OfferHousing } from './offer/offer-housing.enum.js';
 export { OfferLocation } from './offer/offer-location.type.js';
-export { AllOffersRequest, CreateOfferRequest } from './offer/offer-request.type.js';
 export { Offer } from './offer/offer.type.js';
+export { ParamOfferCity } from './offer/param-offer-city.js';
 export { ParamOfferId } from './offer/param-offer-id.js';
 
 export { CreateUserRequest, LoginUserRequest } from './user/user-request.type.js';

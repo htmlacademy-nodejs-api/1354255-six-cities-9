@@ -33,6 +33,6 @@ export const PriceRules = {
 } as const;
 
 export const CommentRules = {
-  MIN: 0,
-  MAX: 10
-};
+  MIN_LENGTH: 0,
+  MAX_LENGTH: 10
+} as const;

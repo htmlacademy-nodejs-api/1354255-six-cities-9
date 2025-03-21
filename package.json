@@ -16,7 +16,8 @@
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
     "ts": "tsc --noEmit && node --trace-uncaught --no-warnings=ExperimentalWarning --loader ts-node/esm",
-    "mock:server": "json-server ./mocks/mock-server-data.json --port 3123 --host localhost"
+    "mock:server": "json-server ./mocks/mock-server-data.json --port 3123 --host localhost",
+    "cli": "npm run ts ./src/main.cli.ts"
   },
   "devDependencies": {
     "@types/convict": "6.1.6",

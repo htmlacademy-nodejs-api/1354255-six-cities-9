@@ -23,8 +23,8 @@ export class ImportCommand implements CommandInterface {
     this.onCompleteImport = this.onCompleteImport.bind(this);
 
     this.logger = new ConsoleLogger();
-    this.offerService = new DefaultOfferService(this.logger, OfferModel);
     this.userService = new DefaultUserService(this.logger, UserModel);
+    this.offerService = new DefaultOfferService(this.logger, OfferModel, this.userService,);
     this.databaseClient = new MongoDatabaseClient(this.logger);
   }
 

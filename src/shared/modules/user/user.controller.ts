@@ -14,9 +14,8 @@ import {
   ValidateObjectIdMiddleware
 } from '../../libs/rest/index.js';
 import { Component } from '../../types/component.enum.js';
-import { HttpMethod } from '../../types/index.js';
+import { HttpMethod, UserStatus } from '../../types/index.js';
 import { AuthService } from '../auth/index.js';
-import { CreateUserRequest } from './create-user-request.type.js';
 import { LoginUserDto } from './dto/login-user.dto.js';
 import { CreateUserDto } from './index.js';
 import { LoginUserRequest } from './login-user-request.type.js';
@@ -51,8 +50,14 @@ export class UserController extends BaseController {
         handler: this.login,
         middlewares: [new ValidateDtoMiddleware(LoginUserDto)],
       },
+
       {
-        path: UserRoute.UPLOAD,
+        path: UserRoute.LOGIN,
+        handler: this.checkAuthenticate,
+      },
+
+      {
+        path: UserRoute.UPLOAD_AVATAR,
         method: HttpMethod.Post,
         handler: this.uploadAvatar,
         middlewares: [
@@ -67,9 +72,20 @@ export class UserController extends BaseController {
   }
 
   public async create(
-    { body }: CreateUserRequest,
+    {
+      body,
+      tokenPayload,
+    }: Request<Record<string, unknown>, Record<string, unknown>, CreateUserDto>,
     res: Response,
   ): Promise<void> {
+    if (tokenPayload) {
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        'Only anonymous users are allowed to register a new account',
+        UserController.name,
+      );
+    }
+
     const existingUser = await this.userService.findByEmail(body.email);
 
     if (existingUser) {
@@ -79,6 +95,8 @@ export class UserController extends BaseController {
         UserController.name,
       );
     }
+
+    body.type = UserStatus.Regular;
 
     const result = await this.userService.create(
       body,
@@ -103,5 +121,19 @@ export class UserController extends BaseController {
     this.created(res, {
       filepath: req.file?.path,
     });
+  }
+
+  public async checkAuthenticate({ tokenPayload }: Request, res: Response) {
+    const user = await this.userService.findByEmail(tokenPayload?.email);
+
+    if (!user) {
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        'Unauthorized',
+        UserController.name,
+      );
+    }
+
+    this.ok(res, fillDTO(UserRdo, user));
   }
 }

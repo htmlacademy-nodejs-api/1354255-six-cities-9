@@ -29,7 +29,7 @@ export abstract class BaseController implements Controller {
     }
   }
 
-  public addRoute(route: Route) {
+  private addRoute(route: Route) {
     route.method = route.method ?? HttpMethod.Get;
 
     const wrapperAsyncHandler = asyncHandler(route.handler.bind(this));

@@ -1,16 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { SignJWT } from 'jose';
-import * as crypto from 'node:crypto';
+import { createSecretKey } from 'node:crypto';
 
 import { Config, RestSchema, RestSchemaEnum } from '../../libs/config/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component, TokenPayload } from '../../types/index.js';
 import { LoginUserDto, UserEntity, UserService } from '../user/index.js';
 import { AuthService } from './auth-service.interface.js';
-import {
-  UserIncorrectCredsException,
-  UserNotFoundException,
-} from './index.js';
+import { AuthIncorrectException } from './index.js';
 
 @injectable()
 export class DefaultAuthService implements AuthService {
@@ -22,7 +19,7 @@ export class DefaultAuthService implements AuthService {
 
   public async authenticate(user: UserEntity): Promise<string> {
     const jwtSecret = this.config.get(RestSchemaEnum.JwtSecret);
-    const secretKey = crypto.createSecretKey(jwtSecret, 'utf-8');
+    const secretKey = createSecretKey(jwtSecret, 'utf-8');
     const tokenPayload: TokenPayload = {
       email: user.email,
       name: user.name,
@@ -43,13 +40,13 @@ export class DefaultAuthService implements AuthService {
     if (!user) {
       this.logger.warn(`User with ${dto.email} not found`);
 
-      throw new UserNotFoundException();
+      throw new AuthIncorrectException();
     }
 
     if (!user.verifyPassword(dto.password, this.config.get(RestSchemaEnum.Salt))) {
       this.logger.warn(`Incorrect password for ${dto.email}`);
 
-      throw new UserIncorrectCredsException();
+      throw new AuthIncorrectException();
     }
 
     return user;

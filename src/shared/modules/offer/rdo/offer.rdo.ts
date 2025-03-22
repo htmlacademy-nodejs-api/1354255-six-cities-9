@@ -34,6 +34,9 @@ export class OfferRdo {
     isPremium: boolean;
 
   @Expose()
+    isFavorite: boolean;
+
+  @Expose()
     comments: number;
 
   @Expose()

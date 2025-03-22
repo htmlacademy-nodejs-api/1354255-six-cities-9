@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express, { Express } from 'express';
 import { inject, injectable } from 'inversify';
 
@@ -26,6 +27,8 @@ export class RestApplication {
     private readonly userController: Controller,
     @inject(Component.OfferController)
     private readonly offerController: Controller,
+    @inject(Component.CommentController)
+    private readonly commentController: Controller,
     @inject(Component.AuthExceptionFilter)
     private readonly authExceptionFilter: ExceptionFilter,
   ) {
@@ -58,6 +61,7 @@ export class RestApplication {
 
     this.server.use('/users', this.userController.router);
     this.server.use('/offers', this.offerController.router);
+    this.server.use('/comments', this.commentController.router);
 
     this.logger.info('Controller initialization completed');
   }
@@ -77,6 +81,7 @@ export class RestApplication {
     this.server.use(
       authenticateMiddleware.execute.bind(authenticateMiddleware),
     );
+    this.server.use(cors());
 
     this.logger.info('App-level middleware initialization completed');
   }

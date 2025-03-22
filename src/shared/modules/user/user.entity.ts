@@ -4,6 +4,7 @@ import {
   modelOptions,
   prop
 } from '@typegoose/typegoose';
+import { Types } from 'mongoose';
 
 import { createSHA256 } from '../../helpers/index.js';
 import { User, UserStatus } from '../../types/index.js';
@@ -31,6 +32,13 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 
   @prop({ required: true })
   private password?: string;
+
+  @prop({
+    type: Types.ObjectId,
+    required: true,
+    default: [],
+  })
+  public favorites: Types.ObjectId[];
 
   @prop({ required: false, default: UserStatus.Regular })
   public type: UserStatus;

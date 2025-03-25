@@ -11,7 +11,7 @@ import { OfferService } from './offer-service.interface.js';
 import { DEFAULT_OFFER_COUNT, DEFAULT_PREMIUM_OFFER_COUNT } from './offer.constant.js';
 import { OfferEntity } from './offer.entity.js';
 import {
-  generalOfferAggregation,
+  GENERAL_OFFER_AGGREGATION,
   getIsFavoriteAggregation,
 } from './offer.helpers.js';
 
@@ -42,7 +42,7 @@ export class DefaultOfferService implements OfferService {
           },
         },
 
-        ...generalOfferAggregation,
+        ...GENERAL_OFFER_AGGREGATION,
         ...favoriteAggregation,
       ]);
 
@@ -57,7 +57,7 @@ export class DefaultOfferService implements OfferService {
     const favoriteAggregation = getIsFavoriteAggregation(userId);
 
     return this.offerModel.aggregate([
-      ...generalOfferAggregation,
+      ...GENERAL_OFFER_AGGREGATION,
       ...favoriteAggregation,
 
       { $limit: limit },
@@ -94,7 +94,7 @@ export class DefaultOfferService implements OfferService {
         },
       },
 
-      ...generalOfferAggregation,
+      ...GENERAL_OFFER_AGGREGATION,
       ...favoriteAggregation,
 
       { $limit: DEFAULT_PREMIUM_OFFER_COUNT },
@@ -111,7 +111,7 @@ export class DefaultOfferService implements OfferService {
 
     return this.offerModel.aggregate([
       { $match: { $expr: { $in: ['$_id', currentUser.favorites] } } },
-      ...generalOfferAggregation,
+      ...GENERAL_OFFER_AGGREGATION,
       {
         $addFields: {
           isFavorite: true,

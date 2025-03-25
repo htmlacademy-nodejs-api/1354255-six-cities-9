@@ -41,7 +41,7 @@ export function getIsFavoriteAggregation(userId?: string) {
   ];
 }
 
-export const generalOfferAggregation = [
+export const GENERAL_OFFER_AGGREGATION = [
   {
     $lookup: {
       from: 'comments',

@@ -215,7 +215,7 @@ export class OfferController extends BaseController {
 
     if (!result) {
       throw new HttpError(
-        StatusCodes.BAD_REQUEST,
+        StatusCodes.UNPROCESSABLE_ENTITY,
         `Adding offer with id ${params.offerId} to favorites failed`,
         OfferController.name,
       );
@@ -258,7 +258,7 @@ export class OfferController extends BaseController {
 
     if (!result) {
       throw new HttpError(
-        StatusCodes.BAD_REQUEST,
+        StatusCodes.UNPROCESSABLE_ENTITY,
         `Removing offer with id "${params.offerId}" from favorites failed`,
         'OfferController',
       );

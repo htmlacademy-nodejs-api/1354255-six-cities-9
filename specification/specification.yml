@@ -95,16 +95,42 @@ paths:
         '401':
           description: Пользователь не аутентифицирован.
 
-  /users/logout:
-    delete:
+  /users/{userId}/avatar:
+    post:
       tags:
         - users
-      summary: Завершение сеанса
-      description: Выход из закрытой части приложения
+      summary: Загрузить изображение аватара
+      description: Загружает изображение аватара пользователя. Изображение
+        аватара должно быть в формате `png` или `jpg`.
 
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
       responses:
-          '204':
-            description: Сеанс завершен
+        '201':
+          description: Аватар пользователя был загружен.
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  filepath:
+                    type: string
+                    example: /keks.png
 
   /offers:
     post:
@@ -138,6 +164,13 @@ paths:
       summary: Получение списка предложений по аренде
       description: Получение списка предложений по аренде
 
+      parameters:
+        - name: count
+          in: query
+          description: Лимит количества предложений
+          schema:
+            type: integer
+
       responses:
         '200':
           description: В теле ответа информация о найденных предложениях.
@@ -147,6 +180,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/offer'
+
+        '400':
+          description: Некорректный query-параметр.
 
   /offers/{offerId}:
     patch:
@@ -255,7 +291,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/offer'
 
-  /offers/favorite:
+        '400':
+          description: Указан неверный город
+
+  /offers/favorites:
     get:
       tags:
         - offers
@@ -275,11 +314,19 @@ paths:
         '401':
           description: Ошибка авторизации пользователя.
 
-    patch:
+  /offers/{offerId}/favorites:
+    post:
       tags:
         - offers
-      summary: Добавление и удаление предложения в/из избранного
-      description: Добавление и удаление предложения в/из избранного
+      summary: Добавление предложения в избранное
+      description: Добавление предложения в избранное
+
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
 
       responses:
         '201':
@@ -294,7 +341,36 @@ paths:
         '422':
           description: Ошибка валидации данных
 
-  /offers/{offerId}/comments:
+    delete:
+      tags:
+        - offers
+      summary: Удаление предложения из избранного
+      description: Удаление предложения из избранного
+
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '204':
+          description: Предложение было удалено.
+
+        '400':
+          description: Не удалось удалить из избранного
+
+        '401':
+          description: Ошибка авторизации пользователя.
+
+        '404':
+          description: Предложение с указанным id не найдено.
+
+        '422':
+          description: Ошибка валидации данных
+
+  /comments/{offerId}:
     get:
       tags:
         - comments
@@ -366,7 +442,7 @@ components:
       required:
         - email
         - name
-        - password
+        - type
 
       properties:
         email:

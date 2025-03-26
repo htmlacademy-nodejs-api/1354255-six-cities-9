@@ -207,7 +207,7 @@ paths:
         required: true
 
       responses:
-        '201':
+        '200':
           description: Предложение об аренде создано. В теле ответа информация о новом предложении.
           content:
             application/json:
@@ -267,7 +267,7 @@ paths:
         '404':
           description: Предложение с указанным id не найдено.
 
-  /offers/premium/{cityName}:
+  /offers/premium/{city}:
     get:
       tags:
         - offers
@@ -275,7 +275,7 @@ paths:
       description: Получение списка премиальных предложений для определённого города. Премиальное предложение — предложение с флагом «Premium».
 
       parameters:
-        - name: cityName
+        - name: city
           in: path
           required: true
           schema:
@@ -329,7 +329,7 @@ paths:
             type: string
 
       responses:
-        '201':
+        '200':
           description: Предложение было добавлено в избранное.
 
         '401':
@@ -355,7 +355,7 @@ paths:
             type: string
 
       responses:
-        '204':
+        '200':
           description: Предложение было удалено.
 
         '400':
@@ -528,7 +528,7 @@ components:
         - price
         - facilities
         - location
-        - user
+        - author
         - comments
 
       properties:
@@ -589,7 +589,7 @@ components:
         facilities:
           $ref: '#/components/schemas/offerFacilities'
 
-        user:
+        author:
           $ref: '#/components/schemas/user'
 
         comments:

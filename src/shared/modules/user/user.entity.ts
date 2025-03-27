@@ -9,6 +9,7 @@ import { Types } from 'mongoose';
 import { createSHA256 } from '../../helpers/index.js';
 import { User, UserStatus } from '../../types/index.js';
 
+// это намеренное слияние класса и интерфейса
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}
 
@@ -19,6 +20,7 @@ export interface UserEntity extends defaultClasses.Base {}
   }
 })
 
+// это намеренное слияние класса и интерфейса
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({ unique: true, required: true })

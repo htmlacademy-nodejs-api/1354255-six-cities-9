@@ -9,6 +9,7 @@ import {
 import { OfferEntity } from '../offer/offer.entity.js';
 import { UserEntity } from '../user/index.js';
 
+// это намеренное слияние класса и интерфейса
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface CommentEntity extends defaultClasses.Base {}
 
@@ -19,6 +20,7 @@ export interface CommentEntity extends defaultClasses.Base {}
   },
 })
 
+// это намеренное слияние класса и интерфейса
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class CommentEntity extends defaultClasses.TimeStamps {
   @prop({ trim: true, required: true })

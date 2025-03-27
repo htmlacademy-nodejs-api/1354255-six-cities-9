@@ -17,6 +17,8 @@ const commandFiles = filenames.filter((file) => file.includes('command.ts')).map
 const loadCommandInstances = async () => {
   try {
     const modules = await Promise.all(
+      // конфиг htmlacademy завязан на устаревшую версию конфига eslint-plugin-node,
+      // который не знает о поддержке динамического импорта
       // eslint-disable-next-line node/no-unsupported-features/es-syntax
       commandFiles.map((path) => import(path))
     );
